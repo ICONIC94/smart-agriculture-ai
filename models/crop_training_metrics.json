@@ -1,0 +1,57 @@
+{
+  "best_model": "CatBoost",
+  "selection_metric": "macro_f1",
+  "test_size": 0.2,
+  "random_state": 42,
+  "feature_columns": [
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "n_classes": 22,
+  "class_labels": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "models": {
+    "RandomForest": {
+      "accuracy": 0.9568,
+      "precision_macro": 0.9578,
+      "recall_macro": 0.9568,
+      "f1_macro": 0.9561
+    },
+    "XGBoost": {
+      "accuracy": 0.95,
+      "precision_macro": 0.9514,
+      "recall_macro": 0.95,
+      "f1_macro": 0.9497
+    },
+    "CatBoost": {
+      "accuracy": 0.9568,
+      "precision_macro": 0.9584,
+      "recall_macro": 0.9568,
+      "f1_macro": 0.9561
+    }
+  }
+}

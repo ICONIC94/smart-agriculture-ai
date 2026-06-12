@@ -1,0 +1,38 @@
+{
+  "best_model": "XGBoost",
+  "selection_metric": "r2",
+  "test_size": 0.2,
+  "random_state": 42,
+  "target_column": "Production",
+  "numeric_features": [
+    "Area",
+    "Crop_Year"
+  ],
+  "categorical_features": [
+    "Crop",
+    "District_Name",
+    "Season",
+    "State_Name"
+  ],
+  "dataset_shape_after_cleaning": [
+    242361,
+    7
+  ],
+  "models": {
+    "RandomForest": {
+      "rmse": 11362369.2448,
+      "mae": 609018.4475,
+      "r2": 0.6791
+    },
+    "XGBoost": {
+      "rmse": 3979604.179,
+      "mae": 143920.6979,
+      "r2": 0.9606
+    },
+    "CatBoost": {
+      "rmse": 4807663.4011,
+      "mae": 171037.3859,
+      "r2": 0.9426
+    }
+  }
+}
