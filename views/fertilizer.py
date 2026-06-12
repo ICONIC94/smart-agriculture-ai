@@ -20,7 +20,12 @@ def render_fertilizer_recommendation() -> None:
         unsafe_allow_html=True,
     )
 
-    fertilizer_df = load_fertilizer_dataset()
+    try:
+        fertilizer_df = load_fertilizer_dataset()
+    except Exception:
+        st.warning("⚠ Prediction unavailable. Fertilizer data could not be loaded.")
+        return
+
     crops = sorted(fertilizer_df["Crop"].dropna().unique().tolist())
 
     col1, col2 = st.columns([2, 1])
@@ -36,7 +41,14 @@ def render_fertilizer_recommendation() -> None:
     crop_query = search_term.strip() or selected_crop
 
     if st.button("Get Recommendation", use_container_width=True):
-        result = lookup_fertilizer(fertilizer_df, crop_query)
+        if not crop_query:
+            st.warning("⚠ Please select all required inputs.")
+            return
+        try:
+            result = lookup_fertilizer(fertilizer_df, crop_query)
+        except Exception:
+            st.warning("⚠ Prediction unavailable.")
+            return
         if "error" in result:
             st.warning(result["error"])
             return

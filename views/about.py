@@ -19,14 +19,18 @@ def render_about() -> None:
         unsafe_allow_html=True,
     )
 
-    crop_metrics = load_crop_metrics()
-    production_metrics = load_production_metrics()
+    try:
+        crop_metrics = load_crop_metrics()
+        production_metrics = load_production_metrics()
+    except Exception:
+        st.warning("⚠ Unable to load model metrics.")
+        return
 
     st.markdown("### Mission")
     st.markdown(
         """
         AgriSense AI helps farmers, agronomists, and policymakers make informed decisions
-        by combining machine learning predictions with interactive analytics. The platform
+        by combining machine learning predictions with practical farm guidance. The platform
         loads pre-trained models at startup and never retrains during inference.
         """
     )
@@ -90,7 +94,6 @@ def render_about() -> None:
     st.markdown("### Technology Stack")
     tech_items = [
         "**Streamlit** — Interactive web application framework",
-        "**Plotly** — Interactive analytics visualizations",
         "**scikit-learn** — Preprocessing pipelines and evaluation",
         "**XGBoost & CatBoost** — Gradient boosting models",
         "**pandas & NumPy** — Data manipulation",

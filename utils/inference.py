@@ -78,24 +78,21 @@ def predict_crop(
 def validate_production_inputs(
     state: str,
     district: str,
-    crop_year: int,
     season: str,
     crop: str,
     area: float,
 ) -> str | None:
     """Validate production prediction inputs."""
     if not state:
-        return "Please select a state."
+        return "⚠ Please select all required inputs."
     if not district:
-        return "Please select a district."
+        return "⚠ Please select all required inputs."
     if not season:
-        return "Please select a season."
+        return "⚠ Please select all required inputs."
     if not crop:
-        return "Please select a crop."
+        return "⚠ Please select all required inputs."
     if not np.isfinite(area) or area <= 0:
-        return "Area must be a positive number."
-    if not np.isfinite(crop_year):
-        return "Crop year must be valid."
+        return "⚠ Area must be a positive number."
     return None
 
 
@@ -110,9 +107,12 @@ def predict_production(
     area: float,
 ) -> dict[str, Any]:
     """Run production prediction inference using saved model artifacts."""
-    error = validate_production_inputs(state, district, crop_year, season, crop, area)
+    error = validate_production_inputs(state, district, season, crop, area)
     if error:
         return {"error": error}
+
+    if not np.isfinite(crop_year):
+        return {"error": "⚠ Prediction unavailable."}
 
     row = pd.DataFrame(
         [
@@ -130,8 +130,8 @@ def predict_production(
     try:
         features = preprocessor.transform(row)
         prediction = float(model.predict(features)[0])
-    except Exception as exc:
-        return {"error": f"Prediction failed: {exc}"}
+    except Exception:
+        return {"error": "⚠ Prediction unavailable."}
 
     if not np.isfinite(prediction):
         return {"error": "Model returned an invalid prediction. Try different inputs."}

@@ -118,3 +118,29 @@ def get_filtered_production_options(
         "seasons": sorted(filtered["Season"].dropna().unique().tolist()),
         "crops": sorted(filtered["Crop"].dropna().unique().tolist()),
     }
+
+
+def get_reference_crop_year(
+    df: pd.DataFrame,
+    state: str,
+    district: str,
+    season: str,
+    crop: str,
+) -> int:
+    """
+    Return the most recent crop year for model inference.
+    Uses the finest matching slice available in the historical dataset.
+    """
+    filtered = df[
+        (df["State_Name"] == state)
+        & (df["District_Name"] == district)
+        & (df["Season"].str.strip() == season.strip())
+        & (df["Crop"] == crop)
+    ]
+    if filtered.empty:
+        filtered = df[(df["State_Name"] == state) & (df["District_Name"] == district)]
+    if filtered.empty:
+        filtered = df[df["State_Name"] == state]
+    if filtered.empty:
+        return int(df["Crop_Year"].max())
+    return int(filtered["Crop_Year"].max())

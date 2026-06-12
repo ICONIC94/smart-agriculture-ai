@@ -9,7 +9,6 @@ from __future__ import annotations
 import streamlit as st
 
 from views.about import render_about
-from views.analytics import render_analytics
 from views.crop_recommendation import render_crop_recommendation
 from views.fertilizer import render_fertilizer_recommendation
 from views.home import render_home
@@ -31,7 +30,6 @@ PAGE_RENDERERS = {
     "crop": render_crop_recommendation,
     "production": render_production_prediction,
     "fertilizer": render_fertilizer_recommendation,
-    "analytics": render_analytics,
     "about": render_about,
 }
 
@@ -61,7 +59,7 @@ def render_sidebar() -> str:
 
         st.markdown("---")
         st.caption("Pre-trained ML models · No retraining at runtime")
-        st.caption("Built with Streamlit & Plotly")
+        st.caption("Built with Streamlit")
 
     return selection
 

@@ -34,9 +34,8 @@ PRODUCTION_COLUMNS = [
 
 NAV_ITEMS = [
     ("home", "Home", "house"),
-    ("crop", "Crop Recommendation", "seedling"),
+    ("crop", "🌱 Crop Recommendation", "seedling"),
     ("production", "Production Prediction", "graph-up"),
     ("fertilizer", "Fertilizer Recommendation", "droplet"),
-    ("analytics", "Analytics Dashboard", "bar-chart"),
     ("about", "About", "info-circle"),
 ]
